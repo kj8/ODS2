@@ -1,6 +1,6 @@
 <?php
 
-interface ODS2ConfigInterface {
+interface ConfigInterface {
 
 	public function get($key);
 }

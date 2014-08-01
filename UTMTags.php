@@ -9,14 +9,14 @@ class UTMTags {
 			$_SESSION[self::SESSION_KEY] = array();
 		}
 
-		if (isset($_GET['utm_source'])) {
-			$_SESSION[self::SESSION_KEY]['utm_source'] = $_GET['utm_source'];
+		if (isset($_GET['utm_campaign'])) {
+			$_SESSION[self::SESSION_KEY]['utm_campaign'] = $_GET['utm_campaign'];
 		}
 		if (isset($_GET['utm_medium'])) {
 			$_SESSION[self::SESSION_KEY]['utm_medium'] = $_GET['utm_medium'];
 		}
-		if (isset($_GET['utm_campaign'])) {
-			$_SESSION[self::SESSION_KEY]['utm_campaign'] = $_GET['utm_campaign'];
+		if (isset($_GET['utm_source'])) {
+			$_SESSION[self::SESSION_KEY]['utm_source'] = $_GET['utm_source'];
 		}
 	}
 
@@ -26,9 +26,9 @@ class UTMTags {
 		}
 
 		$result = array(
-			'utm_source' => isset($_SESSION[self::SESSION_KEY]['utm_source']) ? $_SESSION[self::SESSION_KEY]['utm_source'] : '',
-			'utm_medium' => isset($_SESSION[self::SESSION_KEY]['utm_medium']) ? $_SESSION[self::SESSION_KEY]['utm_medium'] : '',
 			'utm_campaign' => isset($_SESSION[self::SESSION_KEY]['utm_campaign']) ? $_SESSION[self::SESSION_KEY]['utm_campaign'] : '',
+			'utm_medium' => isset($_SESSION[self::SESSION_KEY]['utm_medium']) ? $_SESSION[self::SESSION_KEY]['utm_medium'] : '',
+			'utm_source' => isset($_SESSION[self::SESSION_KEY]['utm_source']) ? $_SESSION[self::SESSION_KEY]['utm_source'] : '',
 		);
 
 		if ($clearSession) {
@@ -40,7 +40,7 @@ class UTMTags {
 
 	public static function getUTMString($clearSession = false) {
 		$tags = self::getFromSession($clearSession);
-		$string = $tags['utm_source'] . '+' . $tags['utm_medium'] . '+' . $tags['utm_campaign'];
+		$string = $tags['utm_campaign'] . '+' . $tags['utm_medium'] . '+' . $tags['utm_source'];
 		$string = trim($string, '+');
 
 		return $string;

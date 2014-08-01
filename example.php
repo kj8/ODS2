@@ -1,7 +1,7 @@
 <?php
 
-require_once 'Autoloader.php';
-Autoloader::register();
+require_once 'ODS2Autoloader.php';
+ODS2Autoloader::register();
 
 $UTMTags = UTMTags::getUTMString(true);
 

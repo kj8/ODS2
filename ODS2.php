@@ -5,7 +5,7 @@ class ODS2 {
 	protected $config;
 	protected $logger;
 
-	public function __construct(ODS2ConfigInterface $config, ODS2LoggerInterface $logger) {
+	public function __construct(ConfigInterface $config, LoggerInterface $logger) {
 		$this->config = $config;
 		$this->logger = $logger;
 	}
@@ -66,13 +66,13 @@ class ODS2 {
 		$result = false;
 		$logUniqueID = time() . md5(uniqid(TRUE) . time() . serialize($formData));
 
-		$this->logger->log('[' . $configFormName . '][' . $configForm['activity_code'] . '][' . $logUniqueID . '] Form data serialized: ' . serialize($formData));
-		$this->logger->log('[' . $configFormName . '][' . $configForm['activity_code'] . '][' . $logUniqueID . '] ODS data serialized: ' . serialize($ODSData));
+		$this->logger->log('ods', '[' . $configFormName . '][' . $configForm['activity_code'] . '][' . $logUniqueID . '] Form data serialized: ' . serialize($formData));
+		$this->logger->log('ods', '[' . $configFormName . '][' . $configForm['activity_code'] . '][' . $logUniqueID . '] ODS data serialized: ' . serialize($ODSData));
 
 		try {
 			$clientResponse = $client->SetActivity($setActivity);
 
-			$this->logger->log('[' . $configFormName . '][' . $configForm['activity_code'] . '][' . $logUniqueID . '] ODS response serialized: ' . serialize($clientResponse));
+			$this->logger->log('ods', '[' . $configFormName . '][' . $configForm['activity_code'] . '][' . $logUniqueID . '] ODS response serialized: ' . serialize($clientResponse));
 
 			if (isset($clientResponse->ResponseStatus->Status) && $clientResponse->ResponseStatus->Status == 1) {
 
@@ -82,7 +82,7 @@ class ODS2 {
 				);
 			}
 		} catch (Exception $e) {
-			$this->logger->log('[' . $configFormName . '][' . $configForm['activity_code'] . '][' . $logUniqueID . '] ODS error response serialized: ' . serialize($e->getMessage()));
+			$this->logger->log('ods', '[' . $configFormName . '][' . $configForm['activity_code'] . '][' . $logUniqueID . '] ODS error response serialized: ' . serialize($e->getMessage()));
 		}
 
 		return $result;
